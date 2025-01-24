@@ -1,0 +1,28 @@
+name: tourmap
+services:
+  - name: tourmap-authserver
+    project: ../../aspnet-core/src/Tourmap.Booking.AuthServer/Tourmap.Booking.AuthServer.csproj
+    bindings:
+      - protocol: https
+        port: 44364
+    env:
+      - Kestrel__Certificates__Default__Path=../../../etc/tye/certs/localhost.pfx
+      - Kestrel__Certificates__Default__Password=cb586795-73a5-487a-9272-9eb8359852df
+
+  - name: tourmap-api
+    project: ../../aspnet-core/src/Tourmap.Booking.HttpApi.Host/Tourmap.Booking.HttpApi.Host.csproj
+    bindings:
+      - protocol: https
+        port: 44347
+    env:
+      - Kestrel__Certificates__Default__Path=../../../etc/tye/certs/localhost.pfx
+      - Kestrel__Certificates__Default__Password=cb586795-73a5-487a-9272-9eb8359852df
+
+  - name: db-migrator
+    env:
+      - OpenIddict__Applications__Booking_App__RootUrl=http://localhost:4200
+      - OpenIddict__Applications__Booking_Swagger__RootUrl=https://localhost:44347
+    project: ../../aspnet-core/src/Tourmap.Booking.DbMigrator/Tourmap.Booking.DbMigrator.csproj
+
+  - name: background-worker
+    project: ../../../../consoles/Further.WindowService/src/Further.WindowService/Further.WindowService.csproj

@@ -1,0 +1,1 @@
+dotnet run --project Further.Abp --migrate-database
