@@ -48,6 +48,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.OpenIddict.WildcardDomains;
 
 namespace Further.Abp;
 
@@ -137,7 +138,18 @@ public class FurtherAbpModule : AbpModule
                 serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", "0946b987-7225-4329-a300-9d8c82b5dc7d");
             });
         }
-        
+        else
+        {
+            PreConfigure<AbpOpenIddictWildcardDomainOptions>(options =>
+            {
+                options.EnableWildcardDomainSupport = true;
+                options.WildcardDomainsFormat.Add("https://{0}.api.getabp.net/signin-oidc");
+                options.WildcardDomainsFormat.Add("https://{0}.api.getabp.net/signout-callback-oidc");
+                options.WildcardDomainsFormat.Add("https://{0}.admin.getabp.net");
+            });
+
+        }
+
         AbpGlobalFeatureConfigurator.Configure();
         AbpModuleExtensionConfigurator.Configure();
         AbpEfCoreEntityExtensionMappings.Configure();
@@ -165,6 +177,12 @@ public class FurtherAbpModule : AbpModule
         ConfigureCors(context, configuration);
         ConfigureDataProtection(context);
         ConfigureEfCore(context);
+
+        Configure<AbpTenantResolveOptions>(options =>
+        {
+            options.AddDomainTenantResolver("{0}.api.getabp.net");
+        });
+
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

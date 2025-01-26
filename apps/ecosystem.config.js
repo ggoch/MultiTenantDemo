@@ -15,6 +15,7 @@ module.exports = {
       cwd: "./abp/aspnet-core/Further.Abp/bin/Release/net9.0/publish", // 設定 Next.js 專案的工作目錄
       env: {
         ASPNETCORE_URLS: "https://localhost:44366",
+        // ASPNETCORE_URLS: "https://api.getabp.net:44366",
       },
     },
     {
@@ -23,8 +24,8 @@ module.exports = {
       args: "run start",
       //使用nvm後需指定正確路徑否則無法啟動
       //https://github.com/Unitech/pm2/issues/5571
-      // script: "node",
-      // args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run start`,
+      script: "node",
+      args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run start`,
       cwd: "./abp/angular", // 設定 Next.js 專案的工作目錄
     },
     {
@@ -33,8 +34,8 @@ module.exports = {
       // args: "run dev",
       //使用nvm後需指定正確路徑否則無法啟動
       //https://github.com/Unitech/pm2/issues/5571
-      // script: "node",
-      // args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run dev`,
+      script: "node",
+      args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run dev`,
       cwd: "./nextjs", // 設定 Next.js 專案的工作目錄
       env: {
         //   NODE_ENV: "production", // 設定環境變數
@@ -43,12 +44,12 @@ module.exports = {
     },
     {
       name: "strapi",
-      script: "npm",
-      args: "run develop",
+      // script: "npm",
+      // args: "run develop",
       //使用nvm後需指定正確路徑否則無法啟動
       //https://github.com/Unitech/pm2/issues/5571
-      // script: "node",
-      // args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run develop`,
+      script: "node",
+      args: `${process.env.NVM_PATH}\\node_modules\\npm\\bin\\npm-cli.js run develop`,
       cwd: "./strapi", // 設定 Strapi 專案的工作目錄
       env: {
         // NODE_ENV: "development", // 或 "production" 根據需要設置
