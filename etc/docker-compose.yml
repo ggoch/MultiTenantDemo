@@ -76,6 +76,31 @@ services:
     networks:
       - abp-network
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090" # Prometheus 的 Web 界面
+    restart: unless-stopped
+    networks:
+      - abp-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin # Grafana 默認用戶名
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Grafana 默認密碼
+    ports:
+      - "3003:3000" # Grafana 的 Web 界面
+    restart: unless-stopped
+    networks:
+      - abp-network
+    volumes:
+    - ./grafana_data:/var/lib/grafana # 將 Grafana 數據存儲到 Volume 中
+
 volumes:
   sqldata:
     name: demo_sqldata

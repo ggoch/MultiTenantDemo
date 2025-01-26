@@ -4,7 +4,8 @@
     "stop": "pm2 stop all",
     "log": "pm2 logs",
     "delete": "pm2 delete all",
-    "list": "pm2 list"
+    "list": "pm2 list",
+    "install-packages":"pm2 install pm2-metrics"
   },
   "dependencies": {
     "pm2": "^5.4.3"
